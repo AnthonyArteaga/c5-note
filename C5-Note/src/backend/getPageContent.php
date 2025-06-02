@@ -21,7 +21,7 @@ $json = json_decode(file_get_contents('php://input')); // Ensure you read input 
 
 $current_username = 'Guest';
 
-if($json->guest){
+if (isset($json->guest) && $json->guest) {
     $current_username = 'Guest';
 }else{
 

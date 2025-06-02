@@ -1,4 +1,5 @@
 config.json
+/src/backend/uploads
 
 # Logs
 logs

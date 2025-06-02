@@ -30,7 +30,8 @@ if($connection->connect_error) {
 
 $statement = $connection->prepare("SELECT * FROM active_users WHERE token = ?");
 
-$statement->bind_param("s", hash("sha256", $token));
+$hashedToken = hash("sha256", $token);
+$statement->bind_param("s", $hashedToken);
 
 $statement->execute();
 $result = $statement->get_result();
@@ -48,6 +49,12 @@ else {
 }
 
 $target_dir = "uploads/";
+
+$target_dir = "uploads/";
+if (!is_dir($target_dir)) {
+    mkdir($target_dir, 0755, true);
+}
+
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));

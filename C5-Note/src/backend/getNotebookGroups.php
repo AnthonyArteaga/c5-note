@@ -16,7 +16,7 @@ if ($connection->connect_error) {
 // Read input
 $input = json_decode(file_get_contents("php://input"), true);
 
-$guestTitle = $input['guest'] ;
+$guestTitle = $input['guest'] ?? false;
 $loggedInUsername = "Guest";
 if($guestTitle){
     $loggedInUsername = "Guest";

@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 0);
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
+
 require_once 'vendor/autoload.php';
 
 use Dompdf\Dompdf;
