@@ -1,5 +1,10 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../../vendor/autoload.php';
+
 // Function to generate a random code for email verification
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -21,6 +26,9 @@ $data = json_decode($config);
 $username = $data->username;
 $password = $data->password;
 $db_name = $data->db_name;
+
+$smtp_email = $data->smtp_email;
+$smtp_pass = $data->smtp_password;
 
 // Get the input from the JSON request
 $json = json_decode(file_get_contents("php://input"));
@@ -169,8 +177,26 @@ try {
     $stmt->close();
 
     // Send the verification email
-    if (!mail($signup_email, "C5-Note Account Creation", "The verification code to create your account is " . $generated_code . ".\n It expires in 5 minutes.")) {
-        throw new Exception("Error sending email.");
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = $smtp_email;         // From config.json
+        $mail->Password = $smtp_pass;          // From config.json
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        $mail->setFrom($smtp_email, 'C5-Note');   // From config
+        $mail->addAddress($signup_email);
+
+        $mail->isHTML(false);
+        $mail->Subject = 'C5-Note Account Creation';
+        $mail->Body = "The verification code to create your account is " . $generated_code . ".\n It expires in 5 minutes.";
+
+        $mail->send();
+    } catch (Exception $e) {
+        throw new Exception("Email could not be sent. Mailer Error: {$mail->ErrorInfo}");
     }
 
     // Success response

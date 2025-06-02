@@ -1,20 +1,35 @@
-# React + Vite
+# C5-Note
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+C5-Note is a full-stack note-taking web app powered by:
 
-Currently, two official plugins are available:
+- **Frontend**: React + Vite
+- **Backend**: PHP
+- **Database**: MySQL
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
+## Requirements
 
-Dependencys to Run:
-NodeJS
+Make sure you have the following installed on your system:
 
-To run this application use the following commands:
+- [Node.js](https://nodejs.org/) (for React/Vite)
+- [PHP](https://www.php.net/downloads) (recommended: v8.x)
+- [MySQL Server](https://dev.mysql.com/downloads/mysql/)
+- [Composer](https://getcomposer.org/) (only needed if you're using PHPMailer or other PHP libraries)
 
+---
+
+## Requirements
+
+Start react front end
+```
 cd C5-Note
 npm install
 npm run dev
+```
 
-This will start and make the pre generated vite application viewable in the browser.
+Start PHP back end
+```
+cd C5-Note/src
+php -S localhost:8000
+```
