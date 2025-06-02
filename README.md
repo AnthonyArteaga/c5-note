@@ -19,7 +19,7 @@ Make sure you have the following installed on your system:
 
 ---
 
-## Requirements
+## How to run
 
 Start react front end
 ```
@@ -30,6 +30,9 @@ npm run dev
 
 Start PHP back end
 ```
-cd C5-Note/src
+cd C5-Note
+composer install
+
+cd src
 php -S localhost:8000
 ```
