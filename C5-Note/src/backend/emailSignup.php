@@ -163,7 +163,8 @@ try {
         throw new Exception("Error preparing statement for email codes: " . $mysqli->error);
     }
 
-    $stmt->bind_param("sssi", $signup_email, $signup_name, $generated_code, time());
+    $current_time = time();
+    $stmt->bind_param("sssi", $signup_email, $signup_name, $generated_code, $current_time);
     $stmt->execute();
     $stmt->close();
 
